@@ -1,0 +1,93 @@
+@baseUrl = http://localhost:3333
+@authToken = {{authenticate.response.body.$.access_token}}
+
+# @name authenticate
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+  "email": "johndoe@example.com",
+  "password": "123456"
+}
+
+###
+
+# @name register
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "123456"
+}
+
+###
+
+# @name edit_user
+PUT {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "654321",
+  "old_password": "123456"
+}
+
+###
+
+# @name upload_avatar
+PATCH {{baseUrl}}/avatar
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer {{authToken}}
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="sample-upload.png"
+Content-Type: image/png
+
+< ./test/sample-upload.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name create_note
+POST {{baseUrl}}/notes
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "title": "Node.js Intro",
+  "description": "This is a example note.",
+  "tags": ["node", "express"],
+  "links": ["link1", "link2"]
+}
+
+###
+
+# @name get_note
+GET {{baseUrl}}/notes/1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name list_notes
+GET {{baseUrl}}/notes?title=node&tags=node
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name delete_note
+DELETE {{baseUrl}}/notes/1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name list_tags
+GET {{baseUrl}}/tags
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

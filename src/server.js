@@ -5,7 +5,7 @@ import { app } from "./app.js";
 async function bootstrap() {
   await runMigrations();
 
-  await app.listen({ port: env.PORT });
+  await app.listen({ host: env.HOST, port: env.PORT });
 
   console.log(`⚡ HTTP server running`);
 }

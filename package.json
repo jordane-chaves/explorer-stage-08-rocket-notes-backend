@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "pm2-runtime start ecosystem.config.cjs --env production",
     "start:dev": "node --watch --no-warnings src/server.js",
     "migrate": "knex migrate:latest"
   },
@@ -21,6 +21,7 @@
     "dotenv": "^16.3.1",
     "fastify": "^4.25.2",
     "knex": "^3.1.0",
+    "pm2": "^5.3.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7-rc.0",
     "zod": "^3.22.4"
